@@ -1,0 +1,48 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h4 class="m-0 text-primary"><i class="bi bi-box-seam"></i> Inventario de Productos</h4>
+        <a href="{% url 'crear_producto' %}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo Producto</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Proveedor</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in productos %}
+                <tr>
+                    <td>
+                        <span class="fw-bold">{{ p.nombre_producto }}</span><br>
+                        <small class="text-muted">{{ p.marca }}</small>
+                    </td>
+                    <td><span class="badge bg-secondary">{{ p.categoria.nombre_categoria }}</span></td>
+                    <td class="text-success fw-bold">${{ p.precio_venta }}</td>
+                    <td>
+                        {% if p.stock < 5 %}
+                            <span class="text-danger fw-bold">{{ p.stock }} (Bajo)</span>
+                        {% else %}
+                            {{ p.stock }}
+                        {% endif %}
+                    </td>
+                    <td>{{ p.proveedor.nombre_empresa }}</td>
+                    <td>
+                        <a href="{% url 'detalle_producto' p.id_producto %}" class="btn btn-sm btn-info text-white"><i class="bi bi-info-circle"></i></a>
+                        <a href="{% url 'actualizar_producto' p.id_producto %}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                        <a href="{% url 'borrar_producto' p.id_producto %}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

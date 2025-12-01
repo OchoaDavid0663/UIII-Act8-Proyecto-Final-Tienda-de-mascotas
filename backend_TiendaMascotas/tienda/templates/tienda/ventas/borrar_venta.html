@@ -1,0 +1,12 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="alert alert-danger text-center shadow">
+    <h4>¿Anular ticket #{{ venta.numero_ticket }}?</h4>
+    <p>Se borrarán todos los detalles asociados.</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, Anular</button>
+        <a href="{% url 'ver_ventas' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

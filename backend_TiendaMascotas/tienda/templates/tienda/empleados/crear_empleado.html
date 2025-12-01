@@ -1,0 +1,60 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow-sm col-lg-8 mx-auto">
+    <div class="card-header bg-primary text-white"><h4>Nuevo Empleado</h4></div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" class="form-control" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label>DNI</label>
+                    <input type="text" name="dni" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Cargo</label>
+                    <input type="text" name="cargo" class="form-control" placeholder="Ej: Vendedor" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Turno</label>
+                    <select name="turno" class="form-select">
+                        <option value="Mañana">Mañana</option>
+                        <option value="Tarde">Tarde</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Fecha Contratación</label>
+                    <input type="date" name="fecha_contratacion" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Salario</label>
+                    <input type="number" step="0.01" name="salario" class="form-control" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Teléfono</label>
+                    <input type="text" name="telefono" class="form-control" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{% url 'ver_empleados' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

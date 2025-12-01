@@ -1,0 +1,32 @@
+{% extends 'tienda/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card border-danger shadow">
+            <div class="card-header bg-danger text-white">
+                <h4 class="m-0"><i class="bi bi-exclamation-triangle-fill"></i> Confirmar Despido/Baja</h4>
+            </div>
+            <div class="card-body text-center p-5">
+                <h5 class="card-title">¿Estás seguro de eliminar a este empleado?</h5>
+                
+                <div class="alert alert-secondary mt-3">
+                    <h3 class="fw-bold text-dark">{{ empleado.nombre }} {{ empleado.apellido }}</h3>
+                    <p class="mb-0">{{ empleado.cargo }} - DNI: {{ empleado.dni }}</p>
+                </div>
+
+                <p class="text-muted small mt-3">
+                    Nota: Si este empleado tiene ventas registradas, no podrás eliminarlo directamente 
+                    (por seguridad de datos) a menos que se borren primero sus ventas.
+                </p>
+                
+                <form method="POST" class="mt-4">
+                    {% csrf_token %}
+                    <a href="{% url 'ver_empleados' %}" class="btn btn-secondary btn-lg me-2">Cancelar</a>
+                    <button type="submit" class="btn btn-danger btn-lg">Sí, Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

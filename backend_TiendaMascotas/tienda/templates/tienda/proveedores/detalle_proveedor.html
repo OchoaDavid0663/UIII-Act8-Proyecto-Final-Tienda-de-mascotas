@@ -1,0 +1,24 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow col-md-8 mx-auto border-0">
+    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+        <h4 class="m-0"><i class="bi bi-truck"></i> Detalle de Proveedor</h4>
+        <small>ID: {{ proveedor.id_proveedor }}</small>
+    </div>
+    <div class="card-body">
+        <h2 class="card-title text-center mb-4 text-primary">{{ proveedor.nombre_empresa }}</h2>
+        <hr>
+        <div class="row mb-3">
+            <div class="col-md-6"><strong><i class="bi bi-person"></i> Contacto:</strong> <br> {{ proveedor.contacto }}</div>
+            <div class="col-md-6"><strong><i class="bi bi-telephone"></i> Teléfono:</strong> <br> {{ proveedor.telefono }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12"><strong><i class="bi bi-envelope"></i> Email:</strong> <br> {{ proveedor.email }}</div>
+        </div>
+    </div>
+    <div class="card-footer text-end bg-light">
+        <a href="{% url 'ver_proveedores' %}" class="btn btn-secondary">Volver</a>
+        <a href="{% url 'actualizar_proveedor' proveedor.id_proveedor %}" class="btn btn-warning">Editar</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow col-lg-8 mx-auto border-0">
+    <div class="card-header bg-info text-white">
+        <h4 class="m-0"><i class="bi bi-box-seam"></i> Detalle de Producto</h4>
+    </div>
+    <div class="card-body">
+        <h2 class="text-primary">{{ producto.nombre_producto }}</h2>
+        <p class="lead">{{ producto.descripcion }}</p>
+        <hr>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <p><strong>Marca:</strong> {{ producto.marca }}</p>
+                <p><strong>Categoría:</strong> {{ producto.categoria.nombre_categoria }}</p>
+                <p><strong>Proveedor:</strong> {{ producto.proveedor.nombre_empresa }}</p>
+                <p><strong>Para Especie:</strong> {{ producto.para_especie }}</p>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light rounded border text-center">
+                    <h5>Precio</h5>
+                    <h3 class="text-success fw-bold">${{ producto.precio_venta }}</h3>
+                </div>
+                <div class="p-3 bg-light rounded border text-center mt-2">
+                    <h5>Stock Disponible</h5>
+                    <h3 class="{% if producto.stock < 5 %}text-danger{% else %}text-dark{% endif %} fw-bold">{{ producto.stock }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <strong>Vencimiento:</strong> 
+            {% if producto.fecha_vencimiento %}
+                {{ producto.fecha_vencimiento }}
+            {% else %}
+                <span class="text-muted">No aplica</span>
+            {% endif %}
+             | 
+            <strong>Tamaño:</strong> {{ producto.tamano_animal|default:"General" }}
+        </div>
+    </div>
+    <div class="card-footer text-end bg-light">
+        <a href="{% url 'ver_productos' %}" class="btn btn-secondary">Volver</a>
+        <a href="{% url 'actualizar_producto' producto.id_producto %}" class="btn btn-warning">Editar</a>
+    </div>
+</div>
+{% endblock %}   

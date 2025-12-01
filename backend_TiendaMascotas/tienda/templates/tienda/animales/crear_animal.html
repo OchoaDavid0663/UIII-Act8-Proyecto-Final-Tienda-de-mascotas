@@ -1,0 +1,58 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow-sm col-md-8 mx-auto">
+    <div class="card-header bg-success text-white"><h4>Registrar Animal</h4></div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre_animal" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Chip ID</label>
+                    <input type="text" name="chip_identificacion" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label>Especie</label>
+                    <input type="text" name="especie" class="form-control" placeholder="Ej: Perro" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Raza</label>
+                    <input type="text" name="raza" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Género</label>
+                    <select name="genero" class="form-select" required>
+                        <option value="M">Macho</option>
+                        <option value="H">Hembra</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Fecha Nacimiento</label>
+                    <input type="date" name="fecha_nacimiento" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Precio Venta</label>
+                    <input type="number" step="0.01" name="precio_venta" class="form-control" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Estado de Salud</label>
+                <input type="text" name="estado_salud" class="form-control" placeholder="Ej: Saludable, En tratamiento..." required>
+            </div>
+            <div class="mb-3">
+                <label>Vacunas Aplicadas</label>
+                <textarea name="vacunas_aplicadas" class="form-control" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="{% url 'ver_animales' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

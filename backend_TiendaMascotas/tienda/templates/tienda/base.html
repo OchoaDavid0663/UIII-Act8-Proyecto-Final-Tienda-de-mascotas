@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Mascotas</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Iconos de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        /* Estilos personalizados para hacerlo atractivo */
+        :root {
+            --primary-color: #2c3e50; /* Azul oscuro elegante */
+            --accent-color: #e67e22;  /* Naranja amigable para mascotas */
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* 1. Header Principal */
+        .main-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 5px solid var(--accent-color);
+        }
+        
+        .main-header h1 {
+            font-weight: 700;
+            margin: 0;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* 2. Barra de Navegación */
+        .custom-navbar {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-link {
+            color: var(--primary-color) !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--light-bg);
+            color: var(--accent-color);
+        }
+
+        /* Contenedor del contenido */
+        .content-wrapper {
+            padding: 2rem;
+            min-height: 60vh;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- 1. HEADER CON EL NOMBRE -->
+    <header class="main-header">
+        <div class="container">
+            <h1><i class="bi bi-shop-window"></i> Tienda De Mascotas</h1>
+            <p class="mb-0 text-white-50">Sistema de Gestión </p>
+        </div>
+    </header>
+
+    <!-- 2. BARRA DE NAVEGACIÓN (Debajo del header) -->
+    <nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    
+                    <!-- Inicio -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Inicio</a>
+                    </li>
+
+                    <!-- Menú Animales -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Animales</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'ver_animales' %}"><i class="bi bi-eye"></i> Ver Lista</a></li>
+                            <li><a class="dropdown-item" href="{% url 'crear_animal' %}"><i class="bi bi-plus-circle"></i> Agregar</a></li>
+                        </ul>
+                    </li>
+                    
+
+                    <!-- Menú Productos -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Productos</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'ver_productos' %}"><i class="bi bi-eye"></i> Ver Lista</a></li>
+                            <li><a class="dropdown-item" href="{% url 'crear_producto' %}"><i class="bi bi-plus-circle"></i> Agregar</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menú Categorías -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categorías</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'ver_categorias' %}"><i class="bi bi-eye"></i> Ver Lista</a></li>
+                            <li><a class="dropdown-item" href="{% url 'crear_categoria' %}"><i class="bi bi-plus-circle"></i> Agregar</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menú Clientes -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Clientes</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'ver_clientes' %}"><i class="bi bi-eye"></i> Ver Lista</a></li>
+                            <li><a class="dropdown-item" href="{% url 'crear_cliente' %}"><i class="bi bi-plus-circle"></i> Agregar</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menú Ventas -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Ventas</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'ver_ventas' %}"><i class="bi bi-receipt"></i> Historial</a></li>
+                            <li><a class="dropdown-item" href="{% url 'crear_venta' %}"><i class="bi bi-cart-plus"></i> Nueva Venta</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menú Empleados -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Empleados</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'ver_empleados' %}"><i class="bi bi-eye"></i> Ver Lista</a></li>
+                            <li><a class="dropdown-item" href="{% url 'crear_empleado' %}"><i class="bi bi-plus-circle"></i> Contratar</a></li>
+                        </ul>
+                    </li>
+
+                    <!--Menu Proveedores-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Proveedores</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'ver_proveedores' %}"><i class="bi bi-eye"></i> Ver Lista</a></li>
+                            <li><a class="dropdown-item" href="{% url 'crear_proveedor' %}"><i class="bi bi-plus-circle"></i> Agregar</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 3. CONTENIDO PRINCIPAL (Aquí se inyectará index.html) -->
+    <main class="content-wrapper container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p class="mb-0">&copy; 2024 Ochoa Barenas Abraham David - Sistema de Gestión de Tienda de Mascotas</p>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

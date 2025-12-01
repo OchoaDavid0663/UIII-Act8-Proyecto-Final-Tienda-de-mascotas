@@ -1,0 +1,33 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow-sm col-md-6 mx-auto">
+    <div class="card-header bg-warning"><h4>Editar Categoría</h4></div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label>Nombre Categoría</label>
+                <input type="text" name="nombre_categoria" class="form-control" value="{{ categoria.nombre_categoria }}" required>
+            </div>
+            <div class="mb-3">
+                <label>Descripción</label>
+                <textarea name="descripcion_categoria" class="form-control">{{ categoria.descripcion_categoria }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label>Aplica para Especie</label>
+                <input type="text" name="aplica_para_especie" class="form-control" value="{{ categoria.aplica_para_especie }}" required>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="es_comida" id="es_comida" {% if categoria.es_comida %}checked{% endif %}>
+                <label class="form-check-label" for="es_comida">Es Comida</label>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="es_juguete" id="es_juguete" {% if categoria.es_juguete %}checked{% endif %}>
+                <label class="form-check-label" for="es_juguete">Es Juguete</label>
+            </div>
+            <button type="submit" class="btn btn-warning">Actualizar</button>
+            <a href="{% url 'ver_categorias' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

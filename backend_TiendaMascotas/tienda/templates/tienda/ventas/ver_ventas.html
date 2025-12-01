@@ -1,0 +1,50 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h4 class="m-0 text-primary"><i class="bi bi-receipt"></i> Historial de Ventas</h4>
+        <a href="{% url 'crear_venta' %}" class="btn btn-success"><i class="bi bi-cart-plus"></i> Nueva Venta</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Ticket</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Atendido por</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in ventas %}
+                <tr>
+                    <td class="fw-bold">#{{ v.numero_ticket }}</td>
+                    <td>{{ v.fecha_venta|date:"d/m/Y H:i" }}</td>
+                    <td>{{ v.cliente.nombre }} {{ v.cliente.apellido }}</td>
+                    <td>{{ v.empleado.nombre }}</td>
+                    <td class="fw-bold text-success">${{ v.total_venta }}</td>
+                    <td>
+                        {% if v.estado_venta == 'pagado' %}
+                            <span class="badge bg-success">Pagado</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">{{ v.estado_venta }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'gestionar_venta' v.id_venta %}" class="btn btn-sm btn-primary" title="Ver Detalles/Agregar Items">
+                            <i class="bi bi-eye"></i> Detalles
+                        </a>
+                        <a href="{% url 'borrar_venta' v.id_venta %}" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

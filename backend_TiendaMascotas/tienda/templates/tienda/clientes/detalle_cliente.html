@@ -1,0 +1,37 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow col-md-8 mx-auto border-0">
+    <div class="card-header bg-info text-white">
+        <h4 class="m-0"><i class="bi bi-person"></i> Perfil de Cliente</h4>
+    </div>
+    <div class="card-body">
+        <div class="text-center mb-4">
+            <div class="display-1 text-secondary"><i class="bi bi-person-circle"></i></div>
+            <h2 class="mt-2">{{ cliente.nombre }} {{ cliente.apellido }}</h2>
+            <p class="text-muted">Cliente desde: {{ cliente.fecha_registro }}</p>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Datos de Contacto</h5>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-envelope"></i> {{ cliente.email }}</li>
+                    <li><i class="bi bi-telephone"></i> {{ cliente.telefono }}</li>
+                    <li><i class="bi bi-geo-alt"></i> {{ cliente.direccion|default:"Sin dirección" }}</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h5>Perfil de Mascota</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Mascotas registradas:</strong> {{ cliente.num_mascotas }}</li>
+                    <li><strong>Preferencia:</strong> {{ cliente.tipo_mascota_preferido }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-end bg-light">
+        <a href="{% url 'ver_clientes' %}" class="btn btn-secondary">Volver</a>
+        <a href="{% url 'actualizar_cliente' cliente.id_cliente %}" class="btn btn-warning">Editar</a>
+    </div>
+</div>
+{% endblock %}

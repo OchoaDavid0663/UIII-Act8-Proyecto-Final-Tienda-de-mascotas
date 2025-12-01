@@ -1,0 +1,47 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow-sm col-md-8 mx-auto">
+    <div class="card-header bg-warning"><h4>Editar Cliente</h4></div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" class="form-control" value="{{ cliente.nombre }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" class="form-control" value="{{ cliente.apellido }}" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ cliente.email }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Teléfono</label>
+                    <input type="text" name="telefono" class="form-control" value="{{ cliente.telefono }}" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Dirección</label>
+                <input type="text" name="direccion" class="form-control" value="{{ cliente.direccion }}">
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Num. Mascotas</label>
+                    <input type="number" name="num_mascotas" class="form-control" value="{{ cliente.num_mascotas }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Tipo Mascota Preferido</label>
+                    <input type="text" name="tipo_mascota_preferido" class="form-control" value="{{ cliente.tipo_mascota_preferido }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning">Actualizar</button>
+            <a href="{% url 'ver_clientes' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="alert alert-danger text-center shadow">
+    <h4>¿Eliminar categoría: {{ categoria.nombre_categoria }}?</h4>
+    <p>Esta acción es irreversible.</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'ver_categorias' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h4 class="m-0 text-primary"><i class="bi bi-person-badge"></i> Personal</h4>
+        <a href="{% url 'crear_empleado' %}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Contratar</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cargo/Turno</th>
+                    <th>DNI</th>
+                    <th>Salario</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in empleados %}
+                <tr>
+                    <td class="fw-bold">{{ e.nombre }} {{ e.apellido }}</td>
+                    <td>{{ e.cargo }} <span class="badge bg-info text-dark">{{ e.turno }}</span></td>
+                    <td>{{ e.dni }}</td>
+                    <td class="text-success">${{ e.salario }}</td>
+                    <td>
+                        <a href="{% url 'detalle_empleado' e.id_empleado %}" class="btn btn-sm btn-info text-white"><i class="bi bi-info-circle"></i></a>
+                        <a href="{% url 'actualizar_empleado' e.id_empleado %}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                        <a href="{% url 'borrar_empleado' e.id_empleado %}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

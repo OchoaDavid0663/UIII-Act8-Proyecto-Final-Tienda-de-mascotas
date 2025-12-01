@@ -1,0 +1,12 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="alert alert-danger text-center shadow">
+    <h4>¿Eliminar cliente: {{ cliente.nombre }} {{ cliente.apellido }}?</h4>
+    <p>Se perderá su historial.</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'ver_clientes' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

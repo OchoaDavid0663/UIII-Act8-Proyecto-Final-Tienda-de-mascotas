@@ -1,0 +1,41 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h4 class="m-0 text-primary"><i class="bi bi-heart-pulse"></i> Animales en Tienda</h4>
+        <a href="{% url 'crear_animal' %}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo Animal</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Especie / Raza</th>
+                        <th>Género</th>
+                        <th>Precio</th>
+                        <th>Salud</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in animales %}
+                    <tr>
+                        <td class="fw-bold">{{ a.nombre_animal }}</td>
+                        <td>{{ a.especie }} - {{ a.raza }}</td>
+                        <td>{{ a.get_genero_display }}</td>
+                        <td class="text-success fw-bold">${{ a.precio_venta }}</td>
+                        <td><span class="badge bg-info text-dark">{{ a.estado_salud }}</span></td>
+                        <td>
+                            <a href="{% url 'detalle_animal' a.id_animal %}" class="btn btn-sm btn-info text-white"><i class="bi bi-info-circle"></i></a>
+                            <a href="{% url 'actualizar_animal' a.id_animal %}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                            <a href="{% url 'borrar_animal' a.id_animal %}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

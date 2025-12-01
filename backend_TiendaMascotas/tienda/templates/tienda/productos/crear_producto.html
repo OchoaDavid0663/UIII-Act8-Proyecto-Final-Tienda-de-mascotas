@@ -1,0 +1,76 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow-sm col-lg-8 mx-auto">
+    <div class="card-header bg-success text-white"><h4>Registrar Producto</h4></div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label>Nombre del Producto</label>
+                <input type="text" name="nombre_producto" class="form-control" required>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Categoría</label>
+                    <select name="categoria" class="form-select" required>
+                        <option value="">Seleccione...</option>
+                        {% for c in categorias %}
+                            <option value="{{ c.id_categoria }}">{{ c.nombre_categoria }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Proveedor</label>
+                    <select name="proveedor" class="form-select" required>
+                        <option value="">Seleccione...</option>
+                        {% for p in proveedores %}
+                            <option value="{{ p.id_proveedor }}">{{ p.nombre_empresa }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label>Precio Venta</label>
+                    <input type="number" step="0.01" name="precio_venta" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Stock Inicial</label>
+                    <input type="number" name="stock" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Marca</label>
+                    <input type="text" name="marca" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Para Especie</label>
+                    <input type="text" name="para_especie" class="form-control" placeholder="Ej: Perro, Gato" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Fecha Vencimiento (Opcional)</label>
+                    <input type="date" name="fecha_vencimiento" class="form-control">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Descripción</label>
+                <textarea name="descripcion" class="form-control" rows="2"></textarea>
+            </div>
+            
+            <div class="mb-3">
+                 <label>Tamaño Animal (Opcional)</label>
+                 <input type="text" name="tamano_animal" class="form-control" placeholder="Ej: Raza Pequeña">
+            </div>
+
+            <button type="submit" class="btn btn-success">Guardar Producto</button>
+            <a href="{% url 'ver_productos' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

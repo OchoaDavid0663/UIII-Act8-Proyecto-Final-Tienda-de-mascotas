@@ -1,0 +1,47 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="card shadow-sm col-md-6 mx-auto">
+    <div class="card-header bg-success text-white"><h4>Iniciar Nueva Venta</h4></div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label>Número de Ticket</label>
+                <input type="text" name="numero_ticket" class="form-control" placeholder="Ej: T-00105" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Cliente</label>
+                <select name="cliente" class="form-select" required>
+                    <option value="">Seleccione Cliente...</option>
+                    {% for c in clientes %}
+                        <option value="{{ c.id_cliente }}">{{ c.nombre }} {{ c.apellido }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Empleado (Vendedor)</label>
+                <select name="empleado" class="form-select" required>
+                    <option value="">Seleccione Empleado...</option>
+                    {% for e in empleados %}
+                        <option value="{{ e.id_empleado }}">{{ e.nombre }} {{ e.apellido }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Método de Pago</label>
+                <select name="metodo_pago" class="form-select">
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta">Tarjeta</option>
+                    <option value="Transferencia">Transferencia</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Crear e ir a Detalles</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

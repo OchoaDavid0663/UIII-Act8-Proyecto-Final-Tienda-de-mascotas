@@ -1,0 +1,133 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="row">
+    <!-- Columna Izquierda: Información de la Venta y Lista -->
+    <div class="col-md-8">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h5 class="m-0">Ticket #{{ venta.numero_ticket }} - Cliente: {{ venta.cliente.nombre }}</h5>
+                <span class="badge bg-secondary">{{ venta.fecha_venta|date:"d/m/Y" }}</span>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Cant.</th>
+                            <th>P. Unit</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d in detalles %}
+                        <tr>
+                            <td>
+                                {% if d.producto %}
+                                    <i class="bi bi-box-seam"></i> {{ d.producto.nombre_producto }}
+                                {% elif d.animal_vendido %}
+                                    <i class="bi bi-heart-pulse"></i> {{ d.animal_vendido.nombre_animal }}
+                                {% endif %}
+                            </td>
+                            <td class="text-center">{{ d.cantidad }}</td>
+                            <td class="text-end">${{ d.precio_unitario_venta }}</td>
+                            <td class="text-end fw-bold">${{ d.subtotal }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="4" class="text-center text-muted">Aún no hay items en esta venta.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-active">
+                            <td colspan="3" class="text-end fw-bold fs-5">TOTAL A PAGAR:</td>
+                            <td class="text-end fw-bold fs-5 text-success">${{ venta.total_venta }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="text-end">
+                    <a href="{% url 'ver_ventas' %}" class="btn btn-primary">Finalizar / Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Columna Derecha: Formulario para Agregar -->
+    <div class="col-md-4">
+        <div class="card shadow-sm bg-light">
+            <div class="card-header bg-dark text-white">
+                <h5 class="m-0"><i class="bi bi-plus-circle"></i> Agregar Item</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <label class="fw-bold mb-2">¿Qué deseas vender?</label>
+                    
+                    <!-- Tabs simples de Bootstrap para elegir Producto o Animal -->
+                    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" id="prod-tab" data-bs-toggle="tab" data-bs-target="#prod-panel" type="button" onclick="setTipo('producto')">Producto</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="anim-tab" data-bs-toggle="tab" data-bs-target="#anim-panel" type="button" onclick="setTipo('animal')">Animal</button>
+                        </li>
+                    </ul>
+
+                    <!-- Input oculto para saber qué elegimos -->
+                    <input type="hidden" name="tipo_item" id="tipo_item" value="producto">
+
+                    <div class="tab-content">
+                        <!-- Panel Productos -->
+                        <div class="tab-pane fade show active" id="prod-panel">
+                            <div class="mb-3">
+                                <select name="id_item_prod" id="select_prod" class="form-select" onchange="copiarId(this)">
+                                    <option value="">Selecciona Producto...</option>
+                                    {% for p in productos %}
+                                        <option value="{{ p.id_producto }}">{{ p.nombre_producto }} - ${{ p.precio_venta }} (Stock: {{ p.stock }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label>Cantidad</label>
+                                <input type="number" name="cantidad" class="form-control" value="1" min="1">
+                            </div>
+                        </div>
+
+                        <!-- Panel Animales -->
+                        <div class="tab-pane fade" id="anim-panel">
+                            <div class="mb-3">
+                                <select name="id_item_anim" id="select_anim" class="form-select" onchange="copiarId(this)">
+                                    <option value="">Selecciona Animal...</option>
+                                    {% for a in animales %}
+                                        <option value="{{ a.id_animal }}">{{ a.nombre_animal }} ({{ a.raza }}) - ${{ a.precio_venta }}</option>
+                                    {% endfor %}
+                                </select>
+                                <small class="text-muted">Cantidad siempre será 1 para animales.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input genérico que recibe el ID final -->
+                    <input type="hidden" name="id_item" id="id_item_final">
+
+                    <button type="submit" class="btn btn-success w-100 mt-3">Agregar a la Venta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Pequeño script para manejar la lógica de los tabs y el input oculto
+    function setTipo(tipo) {
+        document.getElementById('tipo_item').value = tipo;
+        // Limpiar selección previa para evitar errores
+        document.getElementById('id_item_final').value = '';
+        document.getElementById('select_prod').value = '';
+        document.getElementById('select_anim').value = '';
+    }
+
+    function copiarId(selectObject) {
+        document.getElementById('id_item_final').value = selectObject.value;
+    }
+</script>
+{% endblock %}
